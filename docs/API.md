@@ -4,6 +4,8 @@
 
 1. `GET /health`
 2. `GET /ready`
+3. `GET /healthz`
+4. `GET /readyz`
 
 ## Prompt Registry
 
@@ -50,3 +52,26 @@
   ]
 }
 ```
+
+## Error Contract
+
+All API errors return a normalized payload:
+
+```json
+{
+  "error": {
+    "code": "rate_limited",
+    "message": "rate_limited",
+    "request_id": "f6aafcd2-25f2-4f5e-b0f6-c7446199758f"
+  }
+}
+```
+
+Common status codes:
+
+1. `400` bad request.
+2. `401` unauthorized when API key is configured.
+3. `404` missing resource.
+4. `413` payload too large.
+5. `422` validation error.
+6. `429` rate limited (includes `Retry-After: 60`).
